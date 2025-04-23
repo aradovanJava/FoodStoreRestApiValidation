@@ -9,8 +9,10 @@ public class PriceValidator implements ConstraintValidator<PriceConstraint, Food
 
     @Override
     public boolean isValid(FoodItemDTO foodItemDTO, ConstraintValidatorContext constraintValidatorContext) {
-        if(foodItemDTO.getSellingPrice().compareTo(foodItemDTO.getInitialPrice()) <= 0) {
-            return false;
+        if(foodItemDTO.getSellingPrice() != null && foodItemDTO.getInitialPrice() != null) {
+            if (foodItemDTO.getSellingPrice().compareTo(foodItemDTO.getInitialPrice()) <= 0) {
+                return false;
+            }
         }
         return true;
     }

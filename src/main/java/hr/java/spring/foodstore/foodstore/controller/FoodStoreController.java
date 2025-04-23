@@ -65,6 +65,4 @@ public class FoodStoreController {
     public void delete(@PathVariable Integer id){
         foodService.deleteFoodItem(id);
     }
-
-
 }
