@@ -123,5 +123,33 @@ public class FoodStoreControllerIntegrationTest {
         mockMvc.perform(delete("/foodStore/1"))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    void testIfFirstIdIsAssignedWhenDatabaseIsEmpty() throws Exception {
+        mockMvc.perform(get("/foodStore/all"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()", is(2)));
+
+        mockMvc.perform(delete("/foodStore/2"))
+                .andExpect(status().isNoContent());
+
+        mockMvc.perform(delete("/foodStore/3"))
+                .andExpect(status().isNoContent());
+
+        FoodItemDTO newItem = new FoodItemDTO(
+                null,
+                "Banana",
+                FoodCategory.FRUIT,
+                89,
+                new BigDecimal("0.40"),
+                new BigDecimal("0.90")
+        );
+
+        mockMvc.perform(post("/foodStore/foodItem")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(newItem)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", is(1)));
+    }
 }
 

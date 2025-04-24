@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class MockFoodRepository implements FoodRepository {
@@ -33,7 +34,7 @@ public class MockFoodRepository implements FoodRepository {
     public List<FoodItem> findByName(String name) {
         return findAll().stream()
                 .filter(fi -> fi.getName().toLowerCase().contains(name.toLowerCase()))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -73,7 +74,7 @@ public class MockFoodRepository implements FoodRepository {
     @Override
     public void deleteFoodItem(Integer id) {
         foodItems = foodItems.stream()
-                        .filter(f1 -> !f1.getId().equals(id)).toList();
+                        .filter(f1 -> !f1.getId().equals(id)).collect(Collectors.toList());
     }
 
     private Integer generateNewFoodItemId() {
