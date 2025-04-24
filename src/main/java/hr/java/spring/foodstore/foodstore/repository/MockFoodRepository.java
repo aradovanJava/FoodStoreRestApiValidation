@@ -63,6 +63,7 @@ public class MockFoodRepository implements FoodRepository {
                 foodItemToUpdate.setFoodCategory(foodItem.getFoodCategory());
                 foodItemToUpdate.setKcal(foodItem.getKcal());
                 foodItemToUpdate.setSellingPrice(foodItem.getSellingPrice());
+                foodItemToUpdate.setInitialPrice(foodItem.getInitialPrice());
 
                 return Optional.of(foodItemToUpdate);
             }
@@ -72,7 +73,7 @@ public class MockFoodRepository implements FoodRepository {
     @Override
     public void deleteFoodItem(Integer id) {
         foodItems = foodItems.stream()
-                        .filter(f1 -> f1.getId().equals(id)).toList();
+                        .filter(f1 -> !f1.getId().equals(id)).toList();
     }
 
     private Integer generateNewFoodItemId() {
